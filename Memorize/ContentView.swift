@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+  @ObservedObject var viewModel: EmojiMemoryGame
+  
   let vehicles = ["🚲", "🚂", "🚁", "🚜", "🚕", "🏎", "🚑", "🚓", "🚒", "✈️", "🚀", "⛵️", "🛸", "🛶", "🚌", "🏍", "🛺", "🚠", "🛵", "🚗", "🚚", "🚇", "🛻", "🚝"]
   
   let animals = ["🦧", "🦏", "🐏", "🐈", "🦤", "🦫", "🦥", "🐫", "🐢", "🦭", "🦘", "🐇"]
@@ -17,7 +19,8 @@ struct ContentView: View {
   @State var emojis: [String]
   @State var emojiCount: Int
   
-  init() {
+  init(viewModel: EmojiMemoryGame) {
+    self.viewModel = viewModel
     emojis = vehicles.shuffled()
     emojiCount = Int.random(in: 4..<vehicles.count)
   }
@@ -28,9 +31,12 @@ struct ContentView: View {
         .font(.largeTitle)
       ScrollView {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
-          ForEach(emojis[0..<emojiCount], id: \.self) { emoji in
-            CardView(content: emoji)
+          ForEach(viewModel.cards) { card in
+            CardView(card: card)
               .aspectRatio(2/3, contentMode: .fit)
+              .onTapGesture {
+                viewModel.choose(card)
+              }
           }
         }
       }
@@ -38,9 +44,6 @@ struct ContentView: View {
       
       Spacer()
       HStack(alignment: .bottom) {
-        //                remove
-        //                Spacer()
-        //                add
         Spacer()
         ThemeChooserButton(title: "Vehicles", icon: "car.2", view: self, keyPath: \.vehicles)
         Spacer()
@@ -54,45 +57,21 @@ struct ContentView: View {
     }
     .padding(.horizontal)
   }
-  
-  var remove: some View {
-    Button {
-      if emojiCount > 1 {
-        emojiCount -= 1
-      }
-    } label: {
-      Image(systemName: "minus.circle")
-    }
-  }
-  
-  var add: some View {
-    Button{
-      if emojiCount < emojis.count {
-        emojiCount += 1
-      }
-    } label: {
-      Image(systemName: "plus.circle")
-    }
-  }
 }
 
 struct CardView: View {
-  var content: String
-  @State var isFaceUp: Bool = true
+  let card: MemoryGame<String>.Card
   
   var body: some View {
     ZStack {
       let shape = RoundedRectangle(cornerRadius: 20)
-      if isFaceUp {
+      if card.isFaceUp {
         shape.fill().foregroundColor(.white)
         shape.strokeBorder(lineWidth: 3)
-        Text(content).font(.largeTitle)
+        Text(card.content).font(.largeTitle)
       } else {
         shape.fill()
       }
-    }
-    .onTapGesture {
-      isFaceUp = !isFaceUp
     }
   }
 }
@@ -119,12 +98,14 @@ struct ThemeChooserButton: View {
 
 struct ContentView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView()
+    let game = EmojiMemoryGame()
+    
+    ContentView(viewModel: game)
       .preferredColorScheme(.dark)
-    ContentView()
+    ContentView(viewModel: game)
       .previewDevice("iPhone 11")
       .preferredColorScheme(.light)
-    ContentView()
+    ContentView(viewModel: game)
       .previewDevice("iPhone 13 Pro Max")
   }
 }
