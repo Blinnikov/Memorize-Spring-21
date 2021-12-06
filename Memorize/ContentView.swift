@@ -10,24 +10,13 @@ import SwiftUI
 struct ContentView: View {
   @ObservedObject var viewModel: EmojiMemoryGame
   
-  let vehicles = ["🚲", "🚂", "🚁", "🚜", "🚕", "🏎", "🚑", "🚓", "🚒", "✈️", "🚀", "⛵️", "🛸", "🛶", "🚌", "🏍", "🛺", "🚠", "🛵", "🚗", "🚚", "🚇", "🛻", "🚝"]
-  
-  let animals = ["🦧", "🦏", "🐏", "🐈", "🦤", "🦫", "🦥", "🐫", "🐢", "🦭", "🦘", "🐇"]
-  
-  let sports = ["🥋", "⛷", "🤺", "🤽🏼‍♂️", "🎳", "🏌🏾", "⛹🏻", "🥌", "🛹", "🏸", "🏐", "🤸🏼‍♀️"]
-  
-  @State var emojis: [String]
-  @State var emojiCount: Int
-  
   init(viewModel: EmojiMemoryGame) {
     self.viewModel = viewModel
-    emojis = vehicles.shuffled()
-    emojiCount = Int.random(in: 4..<vehicles.count)
   }
   
   var body: some View {
     VStack {
-      Text("Memorize!")
+      Text("\(viewModel.title)")
         .font(.largeTitle)
       ScrollView {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
@@ -40,20 +29,7 @@ struct ContentView: View {
           }
         }
       }
-      .foregroundColor(.red)
-      
-      Spacer()
-      HStack(alignment: .bottom) {
-        Spacer()
-        ThemeChooserButton(title: "Vehicles", icon: "car.2", view: self, keyPath: \.vehicles)
-        Spacer()
-        ThemeChooserButton(title: "Animals", icon: "hare", view: self, keyPath: \.animals)
-        Spacer()
-        ThemeChooserButton(title: "Sports", icon: "sportscourt", view: self, keyPath: \.sports)
-        Spacer()
-      }
-      .font(.largeTitle)
-      .padding(.horizontal)
+      .foregroundColor(viewModel.color)
     }
     .padding(.horizontal)
   }
@@ -74,26 +50,6 @@ struct CardView: View {
       }
       else {
         shape.fill()
-      }
-    }
-  }
-}
-
-struct ThemeChooserButton: View {
-  var title: String
-  var icon: String
-  var view: ContentView
-  var keyPath: KeyPath<ContentView, Array<String>>
-  
-  var body: some View {
-    Button {
-      view.emojiCount = Int.random(in: 4..<view[keyPath: keyPath].count)
-      view.emojis = view[keyPath: keyPath].shuffled()
-    } label: {
-      VStack {
-        Image(systemName: icon)
-        Text(title)
-          .font(.subheadline)
       }
     }
   }
