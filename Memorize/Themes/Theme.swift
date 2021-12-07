@@ -27,7 +27,8 @@ extension Theme {
   static let animals = Theme(
     name: "Animals",
     emojis: ["🦧", "🦏", "🐏", "🐈", "🦤", "🦫", "🦥", "🐫", "🐢", "🦭", "🦘", "🐇"],
-    numberOfPairsOfCardsToShow: 12, color: "yellow"
+    numberOfPairsOfCardsToShow: 12,
+    color: "yellow"
   )
   
   static let sports = Theme(
@@ -48,7 +49,7 @@ extension Theme {
     name: "Countries",
     emojis: ["🇧🇷", "🇮🇹", "🇫🇷", "🇫🇮", "🇬🇷", "🇯🇵", "🇰🇷", "🇷🇺", "🇪🇸", "🇬🇧", "🇺🇦", "🇺🇸", "🇦🇷"],
     numberOfPairsOfCardsToShow: 50,
-    color: "brown"
+    color: "gradient"
   )
   
   static let devices = Theme(

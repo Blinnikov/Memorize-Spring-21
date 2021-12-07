@@ -8,27 +8,29 @@
 import SwiftUI
 
 extension Color {
-  static func fromString(_ description: String) -> Color {
+  static func fromString(_ description: String) -> (Color, LinearGradient?) {
     switch description {
     case "red":
-      return .red
+      return (.red, nil)
     case "orange":
-      return .orange
+      return (.orange, nil)
     case "yellow":
-      return .yellow
+      return (.yellow, nil)
     case "blue", "blu":
-      return .blue
+      return (.blue, nil)
     case "green":
-      return .green
+      return (.green, nil)
+    case "gradient":
+      return (.red, LinearGradient(colors: [.red, .blue], startPoint: .leading, endPoint: .trailing))
     case "brown":
       if #available(iOS 15.0, *) {
-        return .brown
+        return (.brown, nil)
       } else {
         // Fallback on earlier versions
         fallthrough
       }
     default:
-      return .pink
+      return (.pink, nil)
     }
   }
 }
