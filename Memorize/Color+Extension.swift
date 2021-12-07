@@ -28,7 +28,7 @@ extension Color {
         fallthrough
       }
     default:
-      return .black
+      return .pink
     }
   }
 }
