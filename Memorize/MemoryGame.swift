@@ -9,8 +9,12 @@ import Foundation
 
 struct MemoryGame<CardContent> where CardContent: Equatable {
   private(set) var cards: Array<Card>
-  private var indexOfTheOneAndOnlyFaceUpCard: Int?
   private(set) var score = 0
+  
+  private var indexOfTheOneAndOnlyFaceUpCard: Int? {
+    get { cards.indices.filter { cards[$0].isFaceUp }.oneAndOnly }
+    set { cards.indices.forEach{ cards[$0].isFaceUp = $0 == newValue }}
+  }
   
   mutating func choose(_ card: Card) {
     if let chosenIndex = cards.firstIndex(where: { $0.id == card.id }),
@@ -32,19 +36,12 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
             score -= 1
           }
         }
-        indexOfTheOneAndOnlyFaceUpCard = nil
+        
+        cards[chosenIndex].isFaceUp = true
       } else {
         // Always turn ALL cards face down on selecting first element in the pair (initial selection or selection after a mismatch)
-        for index in cards.indices {
-          if cards[index].isFaceUp {
-            // When turning card face down that previously was face up - that means it already has been seen
-            cards[index].alreadyBeenSeen = true
-          }
-          cards[index].isFaceUp = false
-        }
         indexOfTheOneAndOnlyFaceUpCard = chosenIndex
       }
-      cards[chosenIndex].isFaceUp.toggle()
     }
   }
   
@@ -61,10 +58,23 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
   }
   
   struct Card: Identifiable {
-    var isFaceUp = false
+    var isFaceUp = false {
+      willSet {
+        // When turning card face down that previously was face up - that means it already has been seen
+        if !newValue && isFaceUp {
+          alreadyBeenSeen = true
+        }
+      }
+    }
     var isMatched = false
     var alreadyBeenSeen = false
     let content: CardContent
     let id: Int
+  }
+}
+
+extension Array {
+  var oneAndOnly: Element? {
+    count == 1 ? first : nil
   }
 }
