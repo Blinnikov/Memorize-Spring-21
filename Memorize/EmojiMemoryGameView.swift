@@ -52,29 +52,41 @@ struct CardView: View {
   let gradient: LinearGradient?
   
   var body: some View {
-    ZStack {
-      let dot = Circle()
-        .size(width: 5, height: 5)
-        .fill(Color.blue)
-        .opacity(card.alreadyBeenSeen ? 1 : 0)
-      let shape = RoundedRectangle(cornerRadius: 20)
-      if card.isFaceUp {
-        shape.fill().foregroundColor(.white)
-          .overlay(dot)
-          .padding()
-        shape.strokeBorder(lineWidth: 3).foregroundColor(.blue)
-        Text(card.content).font(.largeTitle)
-      } else if card.isMatched {
-        shape.opacity(0)
-      }
-      else {
-        if let gradient = gradient {
-          shape.fill(gradient)
-        } else {
-          shape.fill()
+    GeometryReader { geometry in
+      ZStack {
+        let dot = Circle()
+          .size(width: 5, height: 5)
+          .fill(Color.blue)
+          .opacity(card.alreadyBeenSeen ? 1 : 0)
+        let shape = RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
+        if card.isFaceUp {
+          shape.fill().foregroundColor(.white)
+            .overlay(dot)
+            .padding()
+          shape.strokeBorder(lineWidth: DrawingConstants.lineWidth).foregroundColor(.blue)
+          Text(card.content).font(font(in: geometry.size))
+        } else if card.isMatched {
+          shape.opacity(0)
+        }
+        else {
+          if let gradient = gradient {
+            shape.fill(gradient)
+          } else {
+            shape.fill()
+          }
         }
       }
     }
+  }
+  
+  private func font(in size: CGSize) -> Font {
+    Font.system(size: min(size.width, size.height) * DrawingConstants.fontScale)
+  }
+  
+  private struct DrawingConstants {
+    static let cornerRadius: CGFloat = 20
+    static let lineWidth: CGFloat = 3
+    static let fontScale: CGFloat = 0.8
   }
 }
 
