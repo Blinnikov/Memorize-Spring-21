@@ -65,6 +65,8 @@ struct CardView: View {
             .overlay(dot)
             .padding()
           shape.strokeBorder(lineWidth: DrawingConstants.lineWidth).foregroundColor(.blue)
+          Pie(startAngle: Angle(degrees: 0-90), endAngle: Angle(degrees: 110-90))
+            .padding(5).opacity(0.5)
           Text(card.content).font(font(in: geometry.size))
         } else if card.isMatched {
           shape.opacity(0)
@@ -87,17 +89,18 @@ struct CardView: View {
   private struct DrawingConstants {
     static let cornerRadius: CGFloat = 10
     static let lineWidth: CGFloat = 3
-    static let fontScale: CGFloat = 0.75
+    static let fontScale: CGFloat = 0.7
   }
 }
 
 struct EmojiMemoryGameView_Previews: PreviewProvider {
   static var previews: some View {
     let game = EmojiMemoryGame()
+    game.choose(game.cards.first!)
     
 //    ContentView(viewModel: game)
 //      .preferredColorScheme(.dark)
-    EmojiMemoryGameView(viewModel: game)
+    return EmojiMemoryGameView(viewModel: game)
       .previewDevice("iPhone 11")
       .preferredColorScheme(.light)
 //    ContentView(viewModel: game)
