@@ -13,6 +13,7 @@
 		782F742326B9C9D5005C85E4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 782F742226B9C9D5005C85E4 /* Preview Assets.xcassets */; };
 		7871B8122753AFBB001C5395 /* MemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7871B8112753AFBB001C5395 /* MemoryGame.swift */; };
 		7871B8142753B0F7001C5395 /* EmojiMemoryGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7871B8132753B0F7001C5395 /* EmojiMemoryGame.swift */; };
+		7884F54D2766718500C99F34 /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7884F54C2766718500C99F34 /* AspectVGrid.swift */; };
 		78DE37E4275EB49A0053BB6C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DE37E3275EB49A0053BB6C /* Theme.swift */; };
 		78DE37E6275EB6EC0053BB6C /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DE37E5275EB6EC0053BB6C /* Color+Extension.swift */; };
 /* End PBXBuildFile section */
@@ -26,6 +27,7 @@
 		782F742426B9C9D5005C85E4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7871B8112753AFBB001C5395 /* MemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryGame.swift; sourceTree = "<group>"; };
 		7871B8132753B0F7001C5395 /* EmojiMemoryGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiMemoryGame.swift; sourceTree = "<group>"; };
+		7884F54C2766718500C99F34 /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
 		78DE37E3275EB49A0053BB6C /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		78DE37E5275EB6EC0053BB6C /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -69,6 +71,7 @@
 				782F742426B9C9D5005C85E4 /* Info.plist */,
 				782F742126B9C9D5005C85E4 /* Preview Content */,
 				78DE37E5275EB6EC0053BB6C /* Color+Extension.swift */,
+				7884F54C2766718500C99F34 /* AspectVGrid.swift */,
 			);
 			path = Memorize;
 			sourceTree = "<group>";
@@ -160,6 +163,7 @@
 			files = (
 				7871B8122753AFBB001C5395 /* MemoryGame.swift in Sources */,
 				78DE37E6275EB6EC0053BB6C /* Color+Extension.swift in Sources */,
+				7884F54D2766718500C99F34 /* AspectVGrid.swift in Sources */,
 				782F741E26B9C9D4005C85E4 /* EmojiMemoryGameView.swift in Sources */,
 				78DE37E4275EB49A0053BB6C /* Theme.swift in Sources */,
 				782F741C26B9C9D4005C85E4 /* MemorizeApp.swift in Sources */,

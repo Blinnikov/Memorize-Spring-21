@@ -24,17 +24,14 @@ struct EmojiMemoryGameView: View {
           .font(.title2)
       }
       
-      ScrollView {
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 65))]) {
-          ForEach(viewModel.cards) { card in
-            CardView(card: card, gradient: viewModel.gradient)
-              .aspectRatio(2/3, contentMode: .fit)
-              .onTapGesture {
-                viewModel.choose(card)
-              }
+      AspectVGrid(items: viewModel.cards, aspectRatio: 2/3) { card in
+        CardView(card: card, gradient: viewModel.gradient)
+          .padding(4)
+          .onTapGesture {
+            viewModel.choose(card)
           }
-        }
       }
+      .padding(.bottom)
       .foregroundColor(viewModel.color)
       
       Button {
@@ -84,9 +81,9 @@ struct CardView: View {
   }
   
   private struct DrawingConstants {
-    static let cornerRadius: CGFloat = 20
+    static let cornerRadius: CGFloat = 10
     static let lineWidth: CGFloat = 3
-    static let fontScale: CGFloat = 0.8
+    static let fontScale: CGFloat = 0.75
   }
 }
 
