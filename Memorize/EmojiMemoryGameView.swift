@@ -16,35 +16,59 @@ struct EmojiMemoryGameView: View {
   
   var body: some View {
     VStack {
-      HStack(alignment: .firstTextBaseline) {
-        Text("\(viewModel.title)")
-          .font(.largeTitle)
-        Spacer()
-        Text("Score: \(viewModel.score)")
-          .font(.title2)
-      }
-      
-      AspectVGrid(items: viewModel.cards, aspectRatio: 2/3) { card in
-        if card.isMatched && !card.isFaceUp {
-          Rectangle().opacity(0)
-        } else {
-          CardView(card: card, gradient: viewModel.gradient)
-            .padding(4)
-            .onTapGesture {
+      gameInfo
+      gameBody
+      gameButtons
+    }
+    .padding()
+  }
+  
+  var gameInfo: some View {
+    HStack(alignment: .firstTextBaseline) {
+      Text("\(viewModel.title)")
+        .font(.largeTitle)
+      Spacer()
+      Text("Score: \(viewModel.score)")
+        .font(.title2)
+    }
+  }
+  
+  var gameBody: some View {
+    AspectVGrid(items: viewModel.cards, aspectRatio: 2/3) { card in
+      if card.isMatched && !card.isFaceUp {
+        Color.clear
+      } else {
+        CardView(card: card, gradient: viewModel.gradient)
+          .padding(4)
+          .onTapGesture {
+            withAnimation {
               viewModel.choose(card)
             }
-        }
+          }
       }
-      .padding(.bottom)
-      .foregroundColor(viewModel.color)
-      
+    }
+    .padding(.bottom)
+    .foregroundColor(viewModel.color)
+  }
+  
+  var gameButtons: some View {
+    HStack {
+      Spacer()
       Button {
-        viewModel.startNewGame()
+        withAnimation {
+          viewModel.startNewGame()
+        }
       } label: {
         Text("New Game")
       }
+      Spacer()
+      Button("Shuffle") {
+        withAnimation {
+          viewModel.shuffle()
+        }
+      }
+      Spacer()
     }
-    .padding(.horizontal)
   }
 }
 
