@@ -10,17 +10,23 @@ import SwiftUI
 struct EmojiMemoryGameView: View {
   @ObservedObject var viewModel: EmojiMemoryGame
   @State private var dealt = Set<Int>()
+  @State private var newDealing = true
+  
+  @Namespace private var dealingNamespace
   
   init(viewModel: EmojiMemoryGame) {
     self.viewModel = viewModel
   }
   
   var body: some View {
-    VStack {
-      gameInfo
-      gameBody
+    ZStack(alignment: .bottom) {
+      VStack {
+        gameInfo
+        gameBody
+        gameButtons
+          .padding(.horizontal)
+      }
       deckBody
-      gameButtons
     }
     .padding()
   }
@@ -31,6 +37,18 @@ struct EmojiMemoryGameView: View {
   
   private func isUndealt(_ card: EmojiMemoryGame.Card) -> Bool {
     !dealt.contains(card.id)
+  }
+  
+  private func dealAnimation(for card: EmojiMemoryGame.Card) -> Animation {
+    var delay = 0.0
+    if let index = viewModel.cards.firstIndex(where: { $0.id == card.id }) {
+      delay = Double(index) * (CardConstants.totalDealDuration / Double(viewModel.cards.count))
+    }
+    return Animation.easeInOut(duration: CardConstants.totalDealDuration).delay(delay)
+  }
+  
+  private func zIndex(of card: EmojiMemoryGame.Card) -> Double {
+    -Double(viewModel.cards.firstIndex(where: { $0.id == card.id }) ?? 0)
   }
   
   var gameInfo: some View {
@@ -49,8 +67,10 @@ struct EmojiMemoryGameView: View {
          Color.clear
       } else {
         CardView(card: card, gradient: viewModel.gradient)
+          .matchedGeometryEffect(id: card.id, in: dealingNamespace)
           .padding(4)
-          .transition(AnyTransition.asymmetric(insertion: .scale, removal: .opacity))
+          .transition(AnyTransition.asymmetric(insertion: .identity, removal: .scale))
+          .zIndex(zIndex(of: card))
           .onTapGesture {
             withAnimation {
               viewModel.choose(card)
@@ -62,18 +82,12 @@ struct EmojiMemoryGameView: View {
     .foregroundColor(viewModel.color)
   }
   
-  func dealCards() {
-    for card in viewModel.cards {
-      deal(card)
-    }
-  }
-  
   var gameButtons: some View {
     HStack {
-      Spacer()
       Button {
         withAnimation {
           dealt = []
+          newDealing = true
           viewModel.startNewGame()
         }
       } label: {
@@ -85,22 +99,44 @@ struct EmojiMemoryGameView: View {
           viewModel.shuffle()
         }
       }
-      Spacer()
     }
   }
   
   var deckBody: some View {
     ZStack {
-      ForEach(viewModel.cards.filter(isUndealt)) { card in
-        CardView(card: card, gradient: viewModel.gradient)
-          .transition(AnyTransition.asymmetric(insertion: .scale, removal: .opacity))
+      // HACK: - if we go just with `.identity` transition it leaves artifacts
+      // on new game start: if new count of cards is less than the previous one
+      // all cards can be seen, because `.identity` transition doesn't know how to remove them
+      // `.opacity` transition removes those "artefacts" but cards duplication can be observed
+      // on dealing, like two half-opaque cards are merging into single one.
+      // So we need to support both types.
+      // Extracting this logic into conditional method doesn't work.
+      // For now I couldn't find a better way to work around this.
+      if newDealing {
+        ForEach(viewModel.cards.filter(isUndealt)) { card in
+          CardView(card: card, gradient: viewModel.gradient)
+            .matchedGeometryEffect(id: card.id, in: dealingNamespace)
+            .transition(AnyTransition.asymmetric(insertion: .opacity, removal: .opacity))
+            .zIndex(zIndex(of: card))
+        }
+      } else {
+        ForEach(viewModel.cards.filter(isUndealt)) { card in
+          CardView(card: card, gradient: viewModel.gradient)
+            .matchedGeometryEffect(id: card.id, in: dealingNamespace)
+            .transition(AnyTransition.asymmetric(insertion: .opacity, removal: .identity))
+            .zIndex(zIndex(of: card))
+        }
       }
+      
     }
     .frame(width: CardConstants.undealtWidth, height: CardConstants.undealtHeight)
     .foregroundColor(viewModel.color)
     .onTapGesture {
-      withAnimation {
-        dealCards()
+      newDealing = false
+      for card in viewModel.cards {
+        withAnimation(dealAnimation(for: card)) {
+          deal(card)
+        }
       }
     }
   }
