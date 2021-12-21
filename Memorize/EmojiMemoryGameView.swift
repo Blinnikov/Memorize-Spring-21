@@ -9,6 +9,7 @@ import SwiftUI
 
 struct EmojiMemoryGameView: View {
   @ObservedObject var viewModel: EmojiMemoryGame
+  @State private var dealt = Set<Int>()
   
   init(viewModel: EmojiMemoryGame) {
     self.viewModel = viewModel
@@ -18,9 +19,18 @@ struct EmojiMemoryGameView: View {
     VStack {
       gameInfo
       gameBody
+      deckBody
       gameButtons
     }
     .padding()
+  }
+  
+  private func deal(_ card: EmojiMemoryGame.Card) {
+    dealt.insert(card.id)
+  }
+  
+  private func isUndealt(_ card: EmojiMemoryGame.Card) -> Bool {
+    !dealt.contains(card.id)
   }
   
   var gameInfo: some View {
@@ -35,11 +45,12 @@ struct EmojiMemoryGameView: View {
   
   var gameBody: some View {
     AspectVGrid(items: viewModel.cards, aspectRatio: 2/3) { card in
-      if card.isMatched && !card.isFaceUp {
-        Color.clear
+      if isUndealt(card) || (card.isMatched && !card.isFaceUp) {
+         Color.clear
       } else {
         CardView(card: card, gradient: viewModel.gradient)
           .padding(4)
+          .transition(AnyTransition.asymmetric(insertion: .scale, removal: .opacity))
           .onTapGesture {
             withAnimation {
               viewModel.choose(card)
@@ -51,11 +62,18 @@ struct EmojiMemoryGameView: View {
     .foregroundColor(viewModel.color)
   }
   
+  func dealCards() {
+    for card in viewModel.cards {
+      deal(card)
+    }
+  }
+  
   var gameButtons: some View {
     HStack {
       Spacer()
       Button {
         withAnimation {
+          dealt = []
           viewModel.startNewGame()
         }
       } label: {
@@ -69,6 +87,30 @@ struct EmojiMemoryGameView: View {
       }
       Spacer()
     }
+  }
+  
+  var deckBody: some View {
+    ZStack {
+      ForEach(viewModel.cards.filter(isUndealt)) { card in
+        CardView(card: card, gradient: viewModel.gradient)
+          .transition(AnyTransition.asymmetric(insertion: .scale, removal: .opacity))
+      }
+    }
+    .frame(width: CardConstants.undealtWidth, height: CardConstants.undealtHeight)
+    .foregroundColor(viewModel.color)
+    .onTapGesture {
+      withAnimation {
+        dealCards()
+      }
+    }
+  }
+  
+  private struct CardConstants {
+    static let aspectRatio: CGFloat = 2/3
+    static let dealDuration: Double = 0.5
+    static let totalDealDuration: Double = 2
+    static let undealtHeight: CGFloat = 90
+    static let undealtWidth: CGFloat = undealtHeight * aspectRatio
   }
 }
 
