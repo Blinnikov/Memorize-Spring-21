@@ -10,15 +10,9 @@ import SwiftUI
 class EmojiMemoryGame: ObservableObject {
   typealias Card = MemoryGame<String>.Card
   
-  init() {
-    let theme = EmojiMemoryGame.getRandomTheme()
+  init(with theme: Theme) {
     self.theme = theme
     model = EmojiMemoryGame.createMemoryGame(theme: theme)
-  }
-  
-  private static func getRandomTheme() -> Theme {
-    Theme.all.randomElement()!
-//    Theme.all[Int.random(in: 0..<Theme.all.count)]
   }
   
   private static func createMemoryGame(theme: Theme) -> MemoryGame<String> {
@@ -59,8 +53,6 @@ class EmojiMemoryGame: ObservableObject {
   }
   
   func startNewGame() {
-    let theme = EmojiMemoryGame.getRandomTheme()
-    self.theme = theme
     model = EmojiMemoryGame.createMemoryGame(theme: theme)
   }
   

@@ -62,7 +62,7 @@ struct AspectVGrid<Item, ItemView>: View where ItemView: View, Item: Identifiabl
 
 struct AspectVGrid_Previews: PreviewProvider {
     static var previews: some View {
-      let game = EmojiMemoryGame()
+      let game = EmojiMemoryGame(with: ThemeStore(named: "Preview").theme(at: 0))
       AspectVGrid(items: game.cards, aspectRatio: 2/3) { card in
         ZStack {
           RoundedRectangle(cornerRadius: 10)

@@ -16,6 +16,7 @@
 		7884F54D2766718500C99F34 /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7884F54C2766718500C99F34 /* AspectVGrid.swift */; };
 		7884F54F2766B1D300C99F34 /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7884F54E2766B1D300C99F34 /* Pie.swift */; };
 		78BD20C9276FE24200CCB107 /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78BD20C8276FE24200CCB107 /* Cardify.swift */; };
+		78DDCCA7279F49E800072B42 /* ThemeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DDCCA6279F49E800072B42 /* ThemeStore.swift */; };
 		78DE37E4275EB49A0053BB6C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DE37E3275EB49A0053BB6C /* Theme.swift */; };
 		78DE37E6275EB6EC0053BB6C /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DE37E5275EB6EC0053BB6C /* Color+Extension.swift */; };
 /* End PBXBuildFile section */
@@ -32,6 +33,7 @@
 		7884F54C2766718500C99F34 /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
 		7884F54E2766B1D300C99F34 /* Pie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pie.swift; sourceTree = "<group>"; };
 		78BD20C8276FE24200CCB107 /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
+		78DDCCA6279F49E800072B42 /* ThemeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeStore.swift; sourceTree = "<group>"; };
 		78DE37E3275EB49A0053BB6C /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		78DE37E5275EB6EC0053BB6C /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -94,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				78DE37E3275EB49A0053BB6C /* Theme.swift */,
+				78DDCCA6279F49E800072B42 /* ThemeStore.swift */,
 			);
 			path = Themes;
 			sourceTree = "<group>";
@@ -176,6 +179,7 @@
 				78DE37E4275EB49A0053BB6C /* Theme.swift in Sources */,
 				782F741C26B9C9D4005C85E4 /* MemorizeApp.swift in Sources */,
 				7871B8142753B0F7001C5395 /* EmojiMemoryGame.swift in Sources */,
+				78DDCCA7279F49E800072B42 /* ThemeStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
