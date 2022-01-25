@@ -19,6 +19,7 @@
 		78DDCCA7279F49E800072B42 /* ThemeStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DDCCA6279F49E800072B42 /* ThemeStore.swift */; };
 		78DE37E4275EB49A0053BB6C /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DE37E3275EB49A0053BB6C /* Theme.swift */; };
 		78DE37E6275EB6EC0053BB6C /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DE37E5275EB6EC0053BB6C /* Color+Extension.swift */; };
+		78F3A6AE27A0A80500F4B0DB /* ThemeChooser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F3A6AD27A0A80500F4B0DB /* ThemeChooser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		78DDCCA6279F49E800072B42 /* ThemeStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeStore.swift; sourceTree = "<group>"; };
 		78DE37E3275EB49A0053BB6C /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		78DE37E5275EB6EC0053BB6C /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
+		78F3A6AD27A0A80500F4B0DB /* ThemeChooser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeChooser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 				7884F54C2766718500C99F34 /* AspectVGrid.swift */,
 				7884F54E2766B1D300C99F34 /* Pie.swift */,
 				78BD20C8276FE24200CCB107 /* Cardify.swift */,
+				78F3A6AD27A0A80500F4B0DB /* ThemeChooser.swift */,
 			);
 			path = Memorize;
 			sourceTree = "<group>";
@@ -171,6 +174,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7871B8122753AFBB001C5395 /* MemoryGame.swift in Sources */,
+				78F3A6AE27A0A80500F4B0DB /* ThemeChooser.swift in Sources */,
 				78DE37E6275EB6EC0053BB6C /* Color+Extension.swift in Sources */,
 				7884F54F2766B1D300C99F34 /* Pie.swift in Sources */,
 				78BD20C9276FE24200CCB107 /* Cardify.swift in Sources */,

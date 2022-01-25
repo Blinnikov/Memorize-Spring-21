@@ -7,9 +7,10 @@
 
 import Foundation
 
-struct Theme: Codable {
+struct Theme: Codable, Identifiable, Equatable {
   var name: String
   var emojis: [String]
   var numberOfPairsOfCardsToShow: Int
   var color: String
+  var id = UUID()
 }
