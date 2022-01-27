@@ -16,6 +16,8 @@ class ThemeStore: ObservableObject {
     }
   }
   
+  private let DefaultThemeColor = "red"
+  
   init(named name: String) {
     self.name = name
     restoreFromUserDefaults()
@@ -34,7 +36,7 @@ class ThemeStore: ObservableObject {
         name: "Vehicles",
         emojis: ["🚲", "🚂", "🚁", "🚜", "🚕", "🏎", "🚑", "🚓", "🚒", "✈️", "🚀", "⛵️", "🛸", "🛶", "🚌", "🏍", "🛺", "🚠", "🛵", "🚗", "🚚", "🚇", "🛻", "🚝"],
         numberOfPairsOfCardsToShow: 10,
-        color: "red"
+        color: DefaultThemeColor
       )
     )
     
@@ -116,7 +118,14 @@ class ThemeStore: ObservableObject {
     return themes[safeIndex]
   }
   
-  func insertTheme(_ theme: Theme, at index: Int = 0) {
+  func insertNewTheme(named name: String = "New") {
+    insertTheme(
+      Theme(name: name, emojis: [], numberOfPairsOfCardsToShow: 2, color: DefaultThemeColor),
+      at: themes.count
+    )
+  }
+  
+  private func insertTheme(_ theme: Theme, at index: Int = 0) {
     let safeIndex = min(max(index, 0), themes.count)
     themes.insert(theme, at: safeIndex)
   }

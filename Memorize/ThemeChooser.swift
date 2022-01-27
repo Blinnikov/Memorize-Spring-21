@@ -28,6 +28,22 @@ struct ThemeChooser: View {
             }
           }
         }
+        .onDelete { indexSet in
+          store.themes.remove(atOffsets: indexSet)
+        }
+        .onMove { indexSet, newOffset in
+          store.themes.move(fromOffsets: indexSet, toOffset: newOffset)
+        }
+      }
+      .navigationTitle("Manage Themes")
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        ToolbarItem { EditButton() }
+        ToolbarItem(placement: .navigationBarLeading) {
+          Button("Add") {
+            store.insertNewTheme()
+          }
+        }
       }
     }
     .onChange(of: store.themes) { _ in
