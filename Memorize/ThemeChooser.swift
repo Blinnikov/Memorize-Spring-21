@@ -8,9 +8,24 @@
 import SwiftUI
 
 struct ThemeChooser: View {
-  @EnvironmentObject var store: ThemeStore
+  @ObservedObject var store: ThemeStore
   
   @State var themedViewModels = [UUID: EmojiMemoryGame]()
+  
+  init(store: ThemeStore) {
+    // To make background behind the list white
+    UITableView.appearance().backgroundColor = .clear // or .white
+    
+    // Other possible options for customization are:
+    // UINavigationBar.appearance().backgroundColor = .orange
+    // UINavigationBar.appearance().tintColor = .green
+    // UINavigationBar.appearance().barTintColor = .yellow
+    // UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.red]
+    // UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.red]
+    
+    self.store = store
+  }
+  
   
   private func mapThemesToDictionary() -> [UUID: EmojiMemoryGame] {
     store.themes.reduce(into: [UUID: EmojiMemoryGame]()) {
@@ -45,6 +60,7 @@ struct ThemeChooser: View {
           }
         }
       }
+      .listStyle(GroupedListStyle())
     }
     .onChange(of: store.themes) { _ in
       themedViewModels = mapThemesToDictionary()
@@ -57,7 +73,6 @@ struct ThemeChooser: View {
 
 struct ThemeChooser_Previews: PreviewProvider {
   static var previews: some View {
-    ThemeChooser()
-      .environmentObject(ThemeStore(named: "Preview"))
+    ThemeChooser(store: ThemeStore(named: "Preview"))
   }
 }
