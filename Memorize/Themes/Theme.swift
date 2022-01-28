@@ -17,6 +17,13 @@ struct Theme: Codable, Identifiable, Equatable, Hashable {
     }
   }
   var numberOfPairsOfCardsToShow: Int
-  var color: String
+  var rgbaColor: RGBAColor
   var id = UUID()
+}
+
+struct RGBAColor: Codable, Equatable, Hashable {
+  let red: Double
+  let green: Double
+  let blue: Double
+  let alpha: Double
 }

@@ -16,7 +16,7 @@ class ThemeStore: ObservableObject {
     }
   }
   
-  private let DefaultThemeColor = "red"
+  private let DefaultThemeColor = Color.red
   private let DefaultEmojis = ["👺", "😵‍💫", "🤤"]
   
   init(named name: String) {
@@ -37,7 +37,7 @@ class ThemeStore: ObservableObject {
         name: "Vehicles",
         emojis: ["🚲", "🚂", "🚁", "🚜", "🚕", "🏎", "🚑", "🚓", "🚒", "✈️", "🚀", "⛵️", "🛸", "🛶", "🚌", "🏍", "🛺", "🚠", "🛵", "🚗", "🚚", "🚇", "🛻", "🚝"],
         numberOfPairsOfCardsToShow: 10,
-        color: DefaultThemeColor
+        rgbaColor: RGBAColor(color: DefaultThemeColor)
       )
     )
     
@@ -46,7 +46,7 @@ class ThemeStore: ObservableObject {
         name: "Animals",
         emojis: ["🦧", "🦏", "🐏", "🐈", "🦤", "🦫", "🦥", "🐫", "🐢", "🦭", "🦘", "🐇"],
         numberOfPairsOfCardsToShow: 12,
-        color: "yellow"
+        rgbaColor: RGBAColor(color: .yellow)
       )
     )
     
@@ -55,7 +55,7 @@ class ThemeStore: ObservableObject {
         name: "Sports",
         emojis: ["🥋", "⛷", "🤺", "🤽🏼‍♂️", "🎳", "🏌🏾", "⛹🏻", "🥌", "🛹", "🏸", "🏐", "🤸🏼‍♀️"],
         numberOfPairsOfCardsToShow: 5,
-        color: "blu"
+        rgbaColor: RGBAColor(color: .blue)
       )
     )
     
@@ -64,7 +64,7 @@ class ThemeStore: ObservableObject {
         name: "Food",
         emojis: ["🧀", "🧄", "🥦", "🍕", "🥗", "🍳", "🍲", "🍱"],
         numberOfPairsOfCardsToShow: 7,
-        color: "gray"
+        rgbaColor: RGBAColor(color: .gray)
       )
     )
     
@@ -73,7 +73,7 @@ class ThemeStore: ObservableObject {
         name: "Countries",
         emojis: ["🇧🇷", "🇮🇹", "🇫🇷", "🇫🇮", "🇬🇷", "🇯🇵", "🇰🇷", "🇷🇺", "🇪🇸", "🇬🇧", "🇺🇦", "🇺🇸", "🇦🇷"],
         numberOfPairsOfCardsToShow: 50,
-        color: "gradient"
+        rgbaColor: RGBAColor(color: .indigo)
       )
     )
     
@@ -82,7 +82,7 @@ class ThemeStore: ObservableObject {
         name: "Devices",
         emojis: ["⌚️", "💻", "🎧", "🎮", "🕹", "📟"],
         numberOfPairsOfCardsToShow: 6,
-        color: "green"
+        rgbaColor: RGBAColor(color: .green)
       )
     )
     
@@ -91,7 +91,7 @@ class ThemeStore: ObservableObject {
         name: "Instruments",
         emojis: ["🪚", "🔧", "🪛", "🪓", "🔪", "🪄"],
         numberOfPairsOfCardsToShow: 6,
-        color: "orange"
+        rgbaColor: RGBAColor(color: .orange)
       )
     )
   }
@@ -121,7 +121,7 @@ class ThemeStore: ObservableObject {
   
   func insertNewTheme(named name: String = "New") {
     insertTheme(
-      Theme(name: name, emojis: DefaultEmojis, numberOfPairsOfCardsToShow: 2, color: DefaultThemeColor),
+      Theme(name: name, emojis: DefaultEmojis, numberOfPairsOfCardsToShow: 2, rgbaColor: RGBAColor(color: DefaultThemeColor)),
       at: themes.count
     )
   }

@@ -10,17 +10,15 @@ import SwiftUI
 struct Cardify: AnimatableModifier {
   var rotation: Double // in degrees
   let alreadyBeenSeen: Bool
-  let gradient: LinearGradient?
   
   var animatableData: Double {
     get { rotation }
     set { rotation = newValue }
   }
   
-  init(isFaceUp: Bool, alreadyBeenSeen: Bool, gradient: LinearGradient?) {
+  init(isFaceUp: Bool, alreadyBeenSeen: Bool) {
     rotation = isFaceUp ? 0 : 180
     self.alreadyBeenSeen = alreadyBeenSeen
-    self.gradient = gradient
   }
   
   func body(content: Content) -> some View {
@@ -38,11 +36,7 @@ struct Cardify: AnimatableModifier {
         shape.strokeBorder(lineWidth: DrawingConstants.lineWidth).foregroundColor(.blue)
       }
       else {
-        if let gradient = gradient {
-          shape.fill(gradient)
-        } else {
-          shape.fill()
-        }
+        shape.fill()
       }
       content.opacity(rotation < 90 ? 1 : 0)
     }
@@ -56,7 +50,7 @@ struct Cardify: AnimatableModifier {
 }
 
 extension View {
-  func cardify(isFaceUp: Bool, alreadyBeenSeen: Bool, gradient: LinearGradient?) -> some View {
-    self.modifier(Cardify(isFaceUp: isFaceUp, alreadyBeenSeen: alreadyBeenSeen, gradient: gradient))
+  func cardify(isFaceUp: Bool, alreadyBeenSeen: Bool) -> some View {
+    self.modifier(Cardify(isFaceUp: isFaceUp, alreadyBeenSeen: alreadyBeenSeen))
   }
 }

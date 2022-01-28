@@ -31,11 +31,7 @@ class EmojiMemoryGame: ObservableObject {
   }
   
   var color: Color {
-    Color.fromString(theme.color).0
-  }
-  
-  var gradient: LinearGradient? {
-    Color.fromString(theme.color).1
+    Color(rgbaColor: theme.rgbaColor)
   }
   
   var title: String {

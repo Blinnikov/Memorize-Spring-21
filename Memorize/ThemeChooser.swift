@@ -80,7 +80,7 @@ struct ListItem: View {
   var body: some View {
     HStack {
       RoundedRectangle(cornerRadius: 8)
-        .foregroundColor(Color.fromString(theme.color).0)
+        .foregroundColor(Color(rgbaColor: theme.rgbaColor))
         .frame(width: 40, height: 40)
       
       VStack(alignment: .leading) {

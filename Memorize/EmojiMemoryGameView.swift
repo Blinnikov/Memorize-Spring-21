@@ -66,7 +66,7 @@ struct EmojiMemoryGameView: View {
       if isUndealt(card) || (card.isMatched && !card.isFaceUp) {
          Color.clear
       } else {
-        CardView(card: card, gradient: viewModel.gradient)
+        CardView(card: card)
           .matchedGeometryEffect(id: card.id, in: dealingNamespace)
           .padding(4)
           .transition(AnyTransition.asymmetric(insertion: .identity, removal: .scale))
@@ -114,14 +114,14 @@ struct EmojiMemoryGameView: View {
       // For now I couldn't find a better way to work around this.
       if newDealing {
         ForEach(viewModel.cards.filter(isUndealt)) { card in
-          CardView(card: card, gradient: viewModel.gradient)
+          CardView(card: card)
             .matchedGeometryEffect(id: card.id, in: dealingNamespace)
             .transition(AnyTransition.asymmetric(insertion: .opacity, removal: .opacity))
             .zIndex(zIndex(of: card))
         }
       } else {
         ForEach(viewModel.cards.filter(isUndealt)) { card in
-          CardView(card: card, gradient: viewModel.gradient)
+          CardView(card: card)
             .matchedGeometryEffect(id: card.id, in: dealingNamespace)
             .transition(AnyTransition.asymmetric(insertion: .opacity, removal: .identity))
             .zIndex(zIndex(of: card))
@@ -152,7 +152,6 @@ struct EmojiMemoryGameView: View {
 
 struct CardView: View {
   let card: EmojiMemoryGame.Card
-  let gradient: LinearGradient?
   
   @State private var animatedBonusRemaining: Double = 0
   
@@ -181,7 +180,7 @@ struct CardView: View {
           .font(Font.system(size: DrawingConstants.fontSize))
           .scaleEffect(scale(thatFits: geometry.size))
       }
-      .cardify(isFaceUp: card.isFaceUp, alreadyBeenSeen: card.alreadyBeenSeen, gradient: gradient)
+      .cardify(isFaceUp: card.isFaceUp, alreadyBeenSeen: card.alreadyBeenSeen)
     }
   }
   

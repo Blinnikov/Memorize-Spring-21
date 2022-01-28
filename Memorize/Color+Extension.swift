@@ -8,29 +8,20 @@
 import SwiftUI
 
 extension Color {
-  static func fromString(_ description: String) -> (Color, LinearGradient?) {
-    switch description {
-    case "red":
-      return (.red, nil)
-    case "orange":
-      return (.orange, nil)
-    case "yellow":
-      return (.yellow, nil)
-    case "blue", "blu":
-      return (.blue, nil)
-    case "green":
-      return (.green, nil)
-    case "gradient":
-      return (.red, LinearGradient(colors: [.red, .blue], startPoint: .leading, endPoint: .trailing))
-    case "brown":
-      if #available(iOS 15.0, *) {
-        return (.brown, nil)
-      } else {
-        // Fallback on earlier versions
-        fallthrough
-      }
-    default:
-      return (.pink, nil)
-    }
+  init(rgbaColor rgba: RGBAColor) {
+    self.init(.sRGB, red: rgba.red, green: rgba.green, blue: rgba.blue, opacity: rgba.alpha)
+  }
+}
+
+extension RGBAColor {
+  init(color: Color) {
+    var red: CGFloat = 0
+    var green: CGFloat = 0
+    var blue: CGFloat = 0
+    var alpha: CGFloat = 0
+    
+    UIColor(color).getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+    
+    self.init(red: Double(red), green: Double(green), blue: Double(blue), alpha: Double(alpha))
   }
 }
