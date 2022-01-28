@@ -30,15 +30,44 @@ struct ThemeEditor: View {
     }
   }
   
+  @State private var emojisToAdd = ""
+  
   var addEmojiSection: some View {
     Section(header: Text("Add Emojis")) {
-      Text(theme.emojis.joined(separator: " "))
+      TextField("", text: $emojisToAdd)
+        .onChange(of: emojisToAdd) { emojis in
+          withAnimation{
+            addEmojis(emojis)
+          }
+        }
+    }
+  }
+  
+  func addEmojis(_ emojis: String) {
+    let newEmojis = emojis.filter { $0.isEmoji }.map{ String($0) }
+    print(newEmojis)
+    for newEmoji in newEmojis {
+      if !theme.emojis.contains(newEmoji) {
+        theme.emojis.append(newEmoji)
+      }
     }
   }
   
   var removeEmojiSection: some View {
-    Section(header: Text("Remove Emojis")) {
-      Text(theme.emojis.joined(separator: " "))
+    Section(header: Text("Remove Emoji")) {
+//      let emojis = theme.emojis.removingDuplicateCharacters.map { String($0) }
+      let emojis = theme.emojis
+      LazyVGrid(columns: [GridItem(.adaptive(minimum: 40))]) {
+        ForEach(emojis, id: \.self) { emoji in
+          Text(emoji)
+            .onTapGesture {
+              withAnimation {
+                theme.emojis.removeAll(where: { String($0) == emoji })
+              }
+            }
+        }
+      }
+      .font(.system(size: 40))
     }
   }
   
