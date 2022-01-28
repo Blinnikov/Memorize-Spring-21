@@ -63,10 +63,6 @@ struct ThemeChooser: View {
       // To make background behind the list white
       UITableView.appearance().backgroundColor = .clear // or .white
     }
-    .onDisappear {
-      // Restore background
-      UITableView.appearance().backgroundColor = UIColor.systemGroupedBackground
-    }
   }
   
   private func listItemTap(for theme: Theme) -> some Gesture {
