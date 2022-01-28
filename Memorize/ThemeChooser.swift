@@ -11,21 +11,8 @@ struct ThemeChooser: View {
   @ObservedObject var store: ThemeStore
   
   @State var themedViewModels = [UUID: EmojiMemoryGame]()
-  
-  init(store: ThemeStore) {
-    // To make background behind the list white
-    UITableView.appearance().backgroundColor = .clear // or .white
-    
-    // Other possible options for customization are:
-    // UINavigationBar.appearance().backgroundColor = .orange
-    // UINavigationBar.appearance().tintColor = .green
-    // UINavigationBar.appearance().barTintColor = .yellow
-    // UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.red]
-    // UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor.red]
-    
-    self.store = store
-  }
-  
+  @State var editMode: EditMode = .inactive
+  @State private var themeToEdit: Theme?
   
   private func mapThemesToDictionary() -> [UUID: EmojiMemoryGame] {
     store.themes.reduce(into: [UUID: EmojiMemoryGame]()) {
@@ -40,6 +27,7 @@ struct ThemeChooser: View {
           if let viewModel = themedViewModels[theme.id] {
             NavigationLink(destination: EmojiMemoryGameView(viewModel: viewModel)) {
               ListItem(theme: theme)
+                .gesture(editMode == .active ? listItemTap(for: theme) : nil)
             }
           }
         }
@@ -61,13 +49,32 @@ struct ThemeChooser: View {
         }
       }
       .listStyle(GroupedListStyle())
+      .environment(\.editMode, $editMode)
+    }
+    .popover(item: $themeToEdit) { theme in
+      ThemeEditor(theme: $store.themes[theme])
     }
     .onChange(of: store.themes) { _ in
       themedViewModels = mapThemesToDictionary()
     }
     .onAppear {
       themedViewModels = mapThemesToDictionary()
+      
+      // To make background behind the list white
+      UITableView.appearance().backgroundColor = .clear // or .white
     }
+    .onDisappear {
+      // Restore background
+      UITableView.appearance().backgroundColor = UIColor.systemGroupedBackground
+    }
+  }
+  
+  private func listItemTap(for theme: Theme) -> some Gesture {
+    TapGesture()
+      .onEnded {
+        themeToEdit = theme
+        print("tap gesture in Edit mode")
+      }
   }
 }
 

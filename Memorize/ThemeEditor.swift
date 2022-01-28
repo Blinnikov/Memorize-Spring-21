@@ -18,6 +18,10 @@ struct ThemeEditor: View {
       cardsSection
       colorSection
     }
+    .onAppear {
+      // Restore background because it's applied globally
+      UITableView.appearance().backgroundColor = UIColor.systemGroupedBackground
+    }
   }
   
   var nameSection: some View {

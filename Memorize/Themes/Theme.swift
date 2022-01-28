@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Theme: Codable, Identifiable, Equatable {
+struct Theme: Codable, Identifiable, Equatable, Hashable {
   var name: String
   var emojis: [String]
   var numberOfPairsOfCardsToShow: Int
