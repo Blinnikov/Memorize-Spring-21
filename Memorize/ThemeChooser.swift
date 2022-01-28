@@ -39,7 +39,7 @@ struct ThemeChooser: View {
         ForEach(store.themes) { theme in
           if let viewModel = themedViewModels[theme.id] {
             NavigationLink(destination: EmojiMemoryGameView(viewModel: viewModel)) {
-              Text(theme.name)
+              ListItem(theme: theme)
             }
           }
         }
@@ -50,7 +50,7 @@ struct ThemeChooser: View {
           store.themes.move(fromOffsets: indexSet, toOffset: newOffset)
         }
       }
-      .navigationTitle("Manage Themes")
+      .navigationTitle("Themes")
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem { EditButton() }
@@ -69,6 +69,41 @@ struct ThemeChooser: View {
       themedViewModels = mapThemesToDictionary()
     }
   }
+}
+
+struct ListItem: View {
+  var theme: Theme
+  
+  var body: some View {
+    HStack {
+      RoundedRectangle(cornerRadius: 8)
+        .foregroundColor(Color.fromString(theme.color).0)
+        .frame(width: 40, height: 40)
+      
+      VStack(alignment: .leading) {
+        Text(theme.name)
+          .font(.title2)
+        Text("\(theme.numberOfPairsOfCardsToShow * 2) cards")
+          .font(.caption)
+          .foregroundColor(.gray)
+        Spacer()
+        Text(emojisString)
+          .font(.footnote)
+      }
+    }
+  }
+  
+  private var emojisString: String {
+    let emojisToShow = 5
+    let maxEmojisCount = theme.emojis.count
+    let showDots = maxEmojisCount > emojisToShow
+    
+    let emojis = theme.emojis.prefix(emojisToShow).joined(separator: " ")
+    let suffix = showDots ? " ..." : ""
+    
+    return "\(emojis)\(suffix)"
+  }
+  
 }
 
 struct ThemeChooser_Previews: PreviewProvider {
