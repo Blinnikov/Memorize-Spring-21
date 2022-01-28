@@ -79,11 +79,9 @@ struct ThemeEditor: View {
     }
   }
   
-  @State var cardColor: Color = Color.red
-  
   var colorSection: some View {
     Section(header: Text("Card Color")) {
-      ColorPicker("Color", selection: $cardColor)
+      ColorPicker("Color", selection: $theme.color)
     }
   }
 }
