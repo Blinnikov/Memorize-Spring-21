@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		780CFF6727A4400D00EDB0D1 /* ThemeEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780CFF6627A4400D00EDB0D1 /* ThemeEditor.swift */; };
 		782F741C26B9C9D4005C85E4 /* MemorizeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782F741B26B9C9D4005C85E4 /* MemorizeApp.swift */; };
 		782F741E26B9C9D4005C85E4 /* EmojiMemoryGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782F741D26B9C9D4005C85E4 /* EmojiMemoryGameView.swift */; };
 		782F742026B9C9D5005C85E4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 782F741F26B9C9D5005C85E4 /* Assets.xcassets */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		780CFF6627A4400D00EDB0D1 /* ThemeEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeEditor.swift; sourceTree = "<group>"; };
 		782F741826B9C9D4005C85E4 /* Memorize.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memorize.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		782F741B26B9C9D4005C85E4 /* MemorizeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemorizeApp.swift; sourceTree = "<group>"; };
 		782F741D26B9C9D4005C85E4 /* EmojiMemoryGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiMemoryGameView.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				7884F54E2766B1D300C99F34 /* Pie.swift */,
 				78BD20C8276FE24200CCB107 /* Cardify.swift */,
 				78F3A6AD27A0A80500F4B0DB /* ThemeChooser.swift */,
+				780CFF6627A4400D00EDB0D1 /* ThemeEditor.swift */,
 			);
 			path = Memorize;
 			sourceTree = "<group>";
@@ -183,6 +186,7 @@
 				78DE37E4275EB49A0053BB6C /* Theme.swift in Sources */,
 				782F741C26B9C9D4005C85E4 /* MemorizeApp.swift in Sources */,
 				7871B8142753B0F7001C5395 /* EmojiMemoryGame.swift in Sources */,
+				780CFF6727A4400D00EDB0D1 /* ThemeEditor.swift in Sources */,
 				78DDCCA7279F49E800072B42 /* ThemeStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
