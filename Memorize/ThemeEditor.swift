@@ -62,6 +62,8 @@ struct ThemeEditor: View {
           Text(emoji)
             .onTapGesture {
               withAnimation {
+                guard theme.emojis.count > 2 else { return }
+                emojisToAdd = ""
                 theme.emojis.removeAll(where: { String($0) == emoji })
               }
             }
@@ -73,7 +75,7 @@ struct ThemeEditor: View {
   
   var cardsSection: some View {
     Section(header: Text("Different Cards Count")) {
-      Stepper("Cards Count", value: $theme.numberOfPairsOfCardsToShow)
+      Stepper("\(theme.numberOfPairsOfCardsToShow) pairs", value: $theme.numberOfPairsOfCardsToShow, in: 2...theme.emojis.count)
     }
   }
   

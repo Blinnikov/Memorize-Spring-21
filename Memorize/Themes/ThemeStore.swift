@@ -17,6 +17,7 @@ class ThemeStore: ObservableObject {
   }
   
   private let DefaultThemeColor = "red"
+  private let DefaultEmojis = ["👺", "😵‍💫", "🤤"]
   
   init(named name: String) {
     self.name = name
@@ -120,7 +121,7 @@ class ThemeStore: ObservableObject {
   
   func insertNewTheme(named name: String = "New") {
     insertTheme(
-      Theme(name: name, emojis: [], numberOfPairsOfCardsToShow: 2, color: DefaultThemeColor),
+      Theme(name: name, emojis: DefaultEmojis, numberOfPairsOfCardsToShow: 2, color: DefaultThemeColor),
       at: themes.count
     )
   }

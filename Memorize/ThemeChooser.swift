@@ -45,6 +45,7 @@ struct ThemeChooser: View {
         ToolbarItem(placement: .navigationBarLeading) {
           Button("Add") {
             store.insertNewTheme()
+            themeToEdit = store.themes.last
           }
         }
       }
@@ -69,7 +70,6 @@ struct ThemeChooser: View {
     TapGesture()
       .onEnded {
         themeToEdit = theme
-        print("tap gesture in Edit mode")
       }
   }
 }
