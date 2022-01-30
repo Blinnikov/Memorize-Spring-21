@@ -52,7 +52,7 @@ struct ThemeChooser: View {
       .listStyle(GroupedListStyle())
       .environment(\.editMode, $editMode)
     }
-    .popover(item: $themeToEdit) { theme in
+    .sheet(item: $themeToEdit) { theme in
       ThemeEditor(theme: $store.themes[theme])
     }
     .onChange(of: store.themes) { _ in
