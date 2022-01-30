@@ -12,12 +12,15 @@ class ThemeStore: ObservableObject {
   
   @Published var themes = [Theme]() {
     didSet {
-      storeInUserDefaults()
+      scheduleAutoSave()
+//      storeInUserDefaults()
     }
   }
   
+  private var autoSaveTimer: Timer?
   private let DefaultThemeColor = Color.red
   private let DefaultEmojis = ["👺", "😵‍💫", "🤤"]
+  private let AutoSaveInterval = 1.0
   
   init(named name: String) {
     self.name = name
@@ -94,6 +97,13 @@ class ThemeStore: ObservableObject {
         rgbaColor: RGBAColor(color: .orange)
       )
     )
+  }
+  
+  private func scheduleAutoSave() {
+    autoSaveTimer?.invalidate()
+    autoSaveTimer = Timer.scheduledTimer(withTimeInterval: AutoSaveInterval, repeats: false) { _ in
+      self.storeInUserDefaults()
+    }
   }
   
   private var userDefaultsKey: String {
